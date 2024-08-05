@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prices</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pstyle.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="placesList">
+            <h2>Prices by Store</h2>
+            <ul id="store-list" class="list-group">
+                {% for store, total in store_totals.items() %}
+                    <li class="store-item">
+                        <div class="store-info">
+                            <img class="store-logo" src="{{ url_for('static', filename='images/' ~ store ~ '.png') }}" alt="{{ store }} Logo">
+                            <span class="store-name">{{ store }}</span>
+                            <span class="total-price">${{ '%.2f' | format(total) }}</span> <!-- Format to 2 decimal places -->
+                        </div>
+                        <button class="details-button" data-store="{{ store }}">View Details</button>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="back-button-container">
+                <a href="{{ url_for('index') }}"><button id="back-button">Back</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.details-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const storeName = button.getAttribute('data-store');
+                    window.location.href = `/store/${storeName}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
