@@ -25,7 +25,7 @@ db = SQL("sqlite:///p2p.db")
 app.secret_key = os.environ.get("SECRET_KEY", os.urandom(24))
 
 # Path to geckodriver
-GECKODRIVER_PATH = '/Users/akhilbodahanapati/Desktop/codes/Price2Produce/geckodriver'
+GECKODRIVER_PATH = 'PATH_TO_GECKODRIVER'
 
 def generate_user_id():
     """Generate a unique user ID."""
@@ -50,9 +50,9 @@ def scrape_costco(driver, url):
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "username")))
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "password")))
 
-        driver.find_element(By.ID, "username").send_keys("jiter14608@qodiq.com")
+        driver.find_element(By.ID, "username").send_keys("SHIPT USERNAME")
         password_input = driver.find_element(By.ID, "password")
-        password_input.send_keys("Price2Produce34!")
+        password_input.send_keys("SHIPT PASSWORD")
         time.sleep(1)
         password_input.send_keys(Keys.ENTER)
 
