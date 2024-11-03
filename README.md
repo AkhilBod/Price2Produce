@@ -1,3 +1,47 @@
-# PRICE2PRODUCE
+
+# Price2Produce
 #### Video Demo:  <[URL HERE](https://youtu.be/2HR1EmzOlyo)>
-#### Description: The user experience begins with a simple, intuitive input box where users type in their grocery items. As they type, the input is sent to an API that fetches real-time suggestions, making it easier and faster to find items. This real-time feedback enhances the user experience by providing immediate, relevant suggestions based on the entered text.Once users have entered all their grocery items, they are directed to a new page that displays their location along with a list of nearby grocery stores. This page helps users choose the most convenient stores for their shopping needs. By leveraging location data, the system ensures that users can quickly identify which stores are closest to them, saving time and effort. Users can then select the stores they want to compare. This feature allows them to see which stores offer the best prices for their chosen items. The comparison page presents a comprehensive overview of the total prices for the items from each selected store, enabling users to make informed decisions based on cost and convenience.For a more detailed view, users can click on "View Items," which will show an itemized list including the price, quantity, and name of each item. This detailed breakdown provides transparency and helps users understand the cost distribution of their grocery list. It allows users to see exactly what they are paying for each item, which can help them budget more effectively and make adjustments to their list if necessary. Overall, this process is designed to be user-friendly, efficient, and informative. It ensures that users can easily find, compare, and select the best grocery options available to them. The system's seamless integration of real-time suggestions, location-based store selection, and detailed price comparisons makes grocery shopping more convenient and cost-effective.In addition to the core features, the system offers several enhancements to further improve the user experience. For example, users can save their grocery lists for future use, making it easy to re-use or modify lists as needed. They can also set preferences for specific stores or brands, which the system will take into account when fetching suggestions and comparing prices.Furthermore, the system includes a feature that allows users to share their grocery lists with others. This can be particularly useful for families or groups who need to coordinate their shopping. By sharing lists, users can ensure that everyone is on the same page and avoid duplicate purchases.The system also supports integration with online grocery delivery services. This means that once users have selected their preferred store and viewed the itemized list, they can choose to have their groceries delivered directly to their doorstep. This added convenience is especially beneficial for those who are unable to visit stores in person or prefer the ease of online shopping.Finally, the system includes a robust feedback mechanism that allows users to rate their experience and provide suggestions for improvement. This feedback is valuable for continually enhancing the system and ensuring that it meets the evolving needs of users.Overall, the system's combination of real-time suggestions, location-based store selection, detailed price comparisons, list saving and sharing, delivery integration, and user feedback creates a comprehensive and user-centric grocery shopping experience. By focusing on convenience, efficiency, and cost-effectiveness, the system transforms the way users plan and execute their grocery shopping, making it a more enjoyable and streamlined process.
+**Price2Produce** is a web application designed to help users compare grocery prices across various stores using web scraping. The app is built with Flask and SQLite, using Selenium with Firefox to retrieve real-time product prices from different stores, making it easier to find the best deals.
+
+---
+
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Prerequisites](#prerequisites)
+3. [Setup Instructions](#setup-instructions)
+   - [Clone the Repository](#clone-the-repository)
+   - [Set Up Python Environment](#set-up-python-environment)
+   - [Install Firefox](#install-firefox)
+   - [Install Geckodriver](#install-geckodriver)
+   - [Configure Environment Variables](#configure-environment-variables)
+   - [Set Up Database](#set-up-database)
+4. [Running the Application](#running-the-application)
+5. [Troubleshooting](#troubleshooting)
+
+---
+
+## Project Overview
+
+Price2Produce provides users with an intuitive platform to compare prices for grocery items across multiple stores by using real-time data scraping. It leverages the Flask framework for web handling and the SQLite database for storing session and scraping data. 
+
+---
+
+## Prerequisites
+
+Before setting up and running Price2Produce, make sure you have the following installed on your system:
+
+- **Python 3.6+**: This project requires Python for managing dependencies and running the server.
+- **Firefox Browser**: Needed for Selenium to simulate a browser environment.
+- **Geckodriver**: Required for Selenium to control the Firefox browser.
+
+---
+
+## Setup Instructions
+
+### Step 1: Clone the Repository
+
+First, clone the project repository to your local machine.
+
+```bash
+git clone https://github.com/username/Price2Produce.git
+cd Price2Produce
