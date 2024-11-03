@@ -15,4 +15,10 @@ websocket-client==1.8.0
 Werkzeug==3.0.3
 wheel==0.43.0
 wsproto==1.2.0
+<<<<<<< HEAD
 zope.interface==6.4.post2
+=======
+zope.interface==6.4.post2
+Flask==3.0.0
+cs50==3.3.0
+>>>>>>> 1d35b54 (Fixed Numerous Bugs Updated Web Scraping Tags and fixed issue with missing tags)
