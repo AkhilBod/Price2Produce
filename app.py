@@ -25,11 +25,7 @@ db = SQL("sqlite:///p2p.db")
 app.secret_key = os.environ.get("SECRET_KEY", os.urandom(24))
 
 # Path to geckodriver
-<<<<<<< HEAD
-GECKODRIVER_PATH = 'PATH_TO_GECKODRIVER'
-=======
 GECKODRIVER_PATH = '/Users/akhilbodahanapati/Downloads/Price2Produce-main/geckodriver'
->>>>>>> 1d35b54 (Fixed Numerous Bugs Updated Web Scraping Tags and fixed issue with missing tags)
 
 def generate_user_id():
     """Generate a unique user ID."""
@@ -118,33 +114,20 @@ def scrape_other_stores(driver, url, shop):
     items = []
     try:
         driver.get(url)
-<<<<<<< HEAD
-        WebDriverWait(driver, 5).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "Text-sc-16fu6d-0")))
-        product_names = driver.find_elements(By.CLASS_NAME, "Text-sc-16fu6d-0.hDLTuZ")[:3]
-        product_prices = driver.find_elements(By.CLASS_NAME, "Text-sc-16fu6d-0.fKFlFV")[:3]
-        product_quantities = driver.find_elements(By.CLASS_NAME, "Text-sc-16fu6d-0.euogDP")[:3]
-=======
         WebDriverWait(driver, 5).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "StackChildren__StyledStackChildren-sc-5x3aej-0")))
 
         # Updated selectors based on the new HTML structure
         product_names = driver.find_elements(By.CLASS_NAME, "Text-sc-1nm69d8-0.dkTAQm")[:3]  # Updated for product name
         product_prices = driver.find_elements(By.CLASS_NAME, "sc-a7623aae-0.kabjex")[:3]  # Updated for price container
         product_quantities = driver.find_elements(By.CLASS_NAME, "Text-sc-1nm69d8-0.gcHNxU")[:3]  # Updated for quantity/units
->>>>>>> 1d35b54 (Fixed Numerous Bugs Updated Web Scraping Tags and fixed issue with missing tags)
 
         for name_elem, price_elem, quantity_elem in zip(product_names, product_prices, product_quantities):
             try:
                 name = name_elem.text
-<<<<<<< HEAD
-                price_text = price_elem.text
-                quantity = quantity_elem.text
-                price_float = float(''.join(filter(lambda c: c.isdigit() or c == '.', price_text.replace('$', '').strip())))
-=======
                 price_text = price_elem.text.replace('$', '').replace(',', '')
                 quantity = quantity_elem.text
                 price_float = float(''.join(filter(lambda c: c.isdigit() or c == '.', price_text)))/100
 
->>>>>>> 1d35b54 (Fixed Numerous Bugs Updated Web Scraping Tags and fixed issue with missing tags)
                 items.append({'name': name, 'price': price_float, 'quantity': quantity})
             except Exception as e:
                 app.logger.error(f"Error extracting data: {e}")
@@ -342,3 +325,4 @@ def store_details(store_name):
 # Run the Flask application
 if __name__ == '__main__':
     app.run(debug=True)
+
