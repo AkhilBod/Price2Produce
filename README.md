@@ -28,7 +28,7 @@ Before starting, ensure you have the following requirements installed and config
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/Price2Produce.git
+   git clone https://github.com/AkhilBod/Price2Produce.git
    cd Price2Produce
    ```
 
