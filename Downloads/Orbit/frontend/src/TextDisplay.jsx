@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import useTextDisplayData from './useTextDisplayData';
 import DraggableCard from './DraggableCard';
-import { X } from 'lucide-react';
+import { X, Trash2 } from 'lucide-react';
 
 const styles = {
   container: {
@@ -24,17 +24,22 @@ const styles = {
   card: {
     position: 'relative',
     aspectRatio: '1',
-    borderRadius: '0',
+    borderRadius: '8px',
     padding: '0',
     overflow: 'hidden',
     cursor: 'pointer',
     border: 'none',
     backgroundColor: 'transparent',
+    transition: 'transform 0.2s ease-in-out',
+    '&:hover': {
+      transform: 'scale(1.02)',
+    },
   },
   imageContainer: {
     width: '100%',
     height: '100%',
     position: 'relative',
+    backgroundColor: '#1a1a1a',
   },
   image: {
     width: '100%',
@@ -63,15 +68,37 @@ const styles = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '90%',
-    maxWidth: '600px',
-    maxHeight: '80vh',
+    maxWidth: '800px',
+    maxHeight: '90vh',
     backgroundColor: 'white',
     borderRadius: '12px',
     boxShadow: '0 4px 24px rgba(0, 0, 0, 0.2)',
     zIndex: 2000,
-    overflow: 'hidden',
+    overflow: 'auto',
+  },
+  modalHeader: {
+    padding: '16px',
+    borderBottom: '1px solid #eee',
     display: 'flex',
-    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  modalContent: {
+    padding: '20px',
+  },
+  modalClose: {
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    padding: '8px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'background-color 0.2s',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    },
   },
   modalOverlay: {
     position: 'fixed',
@@ -82,11 +109,46 @@ const styles = {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     zIndex: 1999,
   },
+  deleteButton: {
+    position: 'absolute',
+    top: '10px',
+    left: '10px',
+    padding: '8px',
+    backgroundColor: 'rgba(255, 59, 48, 0.9)',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    opacity: 0,
+    transition: 'all 0.2s ease-in-out',
+    zIndex: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: 'none',
+    '&:hover': {
+      backgroundColor: 'rgba(255, 59, 48, 1)',
+      transform: 'scale(1.1)',
+    },
+  },
+  cardWrapper: {
+    position: 'relative',
+    '&:hover .delete-button': {
+      opacity: 1,
+    },
+  },
+  errorMessage: {
+    color: '#ff3b30',
+    padding: '16px',
+    textAlign: 'center',
+    backgroundColor: 'rgba(255, 59, 48, 0.1)',
+    borderRadius: '8px',
+    margin: '16px',
+  },
 };
 
 const TextDisplay = ({ initialItems = [], isSearchMode = false }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [deleteInProgress, setDeleteInProgress] = useState(false);
   const observerRef = useRef();
   const loadingRef = useRef(null);
 
@@ -96,7 +158,8 @@ const TextDisplay = ({ initialItems = [], isSearchMode = false }) => {
     totalCount, 
     loading, 
     error, 
-    fetchPage 
+    fetchPage,
+    removeItem, // Add this to your useTextDisplayData hook
   } = useTextDisplayData(1, 20);
 
   const displayItems = isSearchMode ? initialItems : items;
@@ -111,8 +174,55 @@ const TextDisplay = ({ initialItems = [], isSearchMode = false }) => {
     setSelectedItem(null);
   };
 
+  const handleDelete = async (e, item) => {
+    e.stopPropagation();
+    
+    if (deleteInProgress) return;
+    
+    if (!window.confirm('Are you sure you want to delete this item?')) {
+      return;
+    }
+
+    setDeleteInProgress(true);
+
+    try {
+      const contentType = item.type.toLowerCase();
+      const response = await fetch(
+        `http://localhost:3030/api/delete/${contentType}/${item.id}`,
+        {
+          method: 'DELETE',
+          credentials: 'include',
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to delete item');
+      }
+
+      if (isSearchMode) {
+        // Remove item from search results
+        const updatedItems = initialItems.filter(i => i.id !== item.id);
+        // You'll need to implement a way to update initialItems in the parent component
+      } else {
+        // Remove item from the items state
+        removeItem(item.id);
+      }
+
+      // Close modal if the deleted item was being viewed
+      if (selectedItem?.id === item.id) {
+        closeModal();
+      }
+    } catch (error) {
+      console.error('Error deleting item:', error);
+      alert('Failed to delete item. Please try again.');
+    } finally {
+      setDeleteInProgress(false);
+    }
+  };
+
   const renderContent = (item) => {
     const isImage = item.type === 'image' || (item.metadata && item.metadata.type === 'image');
+    const isYouTube = item.metadata?.type === 'youtube_video';
     
     return (
       <div style={styles.imageContainer}>
@@ -122,6 +232,19 @@ const TextDisplay = ({ initialItems = [], isSearchMode = false }) => {
             alt={item.metadata?.title || 'Image'} 
             style={styles.image}
           />
+        ) : isYouTube ? (
+          <div style={{
+            ...styles.image,
+            backgroundColor: '#000',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+          }}>
+            <span style={{ fontSize: '14px', color: '#fff' }}>
+              {item.document}
+            </span>
+          </div>
         ) : (
           <div style={{
             ...styles.image,
@@ -176,8 +299,14 @@ const TextDisplay = ({ initialItems = [], isSearchMode = false }) => {
   }, [loading, items.length, totalCount, page, fetchPage]);
 
   useEffect(() => {
-    fetchPage(1);
-  }, [fetchPage]);
+    if (!isSearchMode) {
+      fetchPage(1);
+    }
+  }, [fetchPage, isSearchMode]);
+
+  if (error) {
+    return <div style={styles.errorMessage}>{error}</div>;
+  }
 
   return (
     <div style={styles.container}>
@@ -185,9 +314,18 @@ const TextDisplay = ({ initialItems = [], isSearchMode = false }) => {
         {displayItems.map((item, index) => (
           <div 
             key={item.id || index}
-            style={styles.card}
+            style={styles.cardWrapper}
             onClick={() => handleItemClick(item)}
           >
+            <button
+              className="delete-button"
+              style={styles.deleteButton}
+              onClick={(e) => handleDelete(e, item)}
+              disabled={deleteInProgress}
+              title="Delete item"
+            >
+              <Trash2 size={16} color="white" />
+            </button>
             {renderContent(item)}
           </div>
         ))}
@@ -203,7 +341,13 @@ const TextDisplay = ({ initialItems = [], isSearchMode = false }) => {
         <>
           <div style={styles.modalOverlay} onClick={closeModal} />
           <div style={styles.modal}>
-            <div style={{ padding: '20px' }}>
+            <div style={styles.modalHeader}>
+              <h3>{selectedItem.metadata?.title || 'Item Details'}</h3>
+              <button style={styles.modalClose} onClick={closeModal}>
+                <X size={24} />
+              </button>
+            </div>
+            <div style={styles.modalContent}>
               {selectedItem.type === 'image' ? (
                 <img 
                   src={selectedItem.data} 
