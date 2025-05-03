@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/static/images/icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Places</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="placesList">
+            <p id="demo">Fetching your location...</p>
+            <h2>Nearby Options</h2>
+            <ul id="places-list" class="list-group"></ul>
+            <form action="/shop" method="POST" id="shop-form">
+                <input type="hidden" name="shop_list" id="shop_list" value='[]'>
+                <button type="submit">Submit</button>
+            </form>
+            <a href="{{ url_for('index') }}"><button id="back-button">Back</button></a>
+        </div>
+    </div>
+    <div id="loading-popup" class="loading-popup">
+        <div class="loading-content">
+            <img src="/static/images/loading.gif" alt="Loading">
+            <p>Scraping data, please wait...</p>
+            <p id="estimated-time">Estimated time: <span id="time">15</span> seconds</p>
+        </div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAza3pqqdAvUemAgpzoolQu4VFmRaHXkrI&libraries=places"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

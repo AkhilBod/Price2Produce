@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='gstyle.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/icon.png') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="groceryList">
+            <h2>Grocery List <img src="{{ url_for('static', filename='images/carrot.png') }}" alt="Carrot"></h2>
+            <div class="row">
+                <input autofocus type="text" id="input-box" placeholder="Add Produce">
+            </div>
+            <ul id="suggestion-list"></ul>
+            <ul id="list-container">
+                {% for item in grocery_list %}
+                    <li>
+                        <span class="item-text">{{ item.item }}</span>
+                        <input type="number" value="{{ item.quantity }}" class="quantity-input">
+                        <button class="delete-button">Delete</button>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form id="grocery-form" method="POST" action="{{ url_for('index') }}">
+                <input type="hidden" name="user_id" value="123">
+                <input type="hidden" id="grocery-list" name="grocery_list">
+                <button type="submit" id="next-page-button">Find Nearby Stores</button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='gscript.js') }}"></script>
+</body>
+</html>
+

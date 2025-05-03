@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F5F5F5;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.placesList {
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.placesList h2 {
+    color: #002765;
+    margin-bottom: 20px;
+}
+
+#demo {
+    margin-bottom: 20px;
+}
+
+#places-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.list-group-item {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    padding: 12px 10px;
+    margin-bottom: 10px;
+    background-color: #F0F0F0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.store-logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px; /* Space between the image and checkbox */
+}
+
+.details-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.store-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.store-address,
+.store-distance {
+    color: #777;
+}
+
+button {
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    background-color: #85C150;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #6AA13D;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin-right: 10px; /* Space between checkbox and image */
+}
+
+input[type="checkbox"]:checked {
+    background-color: #85C150;
+    border-color: #85C150;
+}
+
+input[type="checkbox"]:checked::before {
+    content: '✔';
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Align buttons in a row and style back button */
+form {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#back-button {
+    display: inline-block;
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    background-color: #ccc;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+#back-button:hover {
+    background-color: #999;
+}
+
+.details-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.details-button:hover {
+    background-color: #0056b3;
+}
+
+/* Loading Popup Styles */
+/* Assuming you have the following CSS settings in your style.css file */
+
+.loading-popup {
+    display: none; /* Default to hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.loading-content img {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+}
+#estimated-time {
+    margin-top: 10px;
+}

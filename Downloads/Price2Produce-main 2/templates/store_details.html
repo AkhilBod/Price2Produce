@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ store_name }} Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sdstyle.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="store-details">
+            <h2>Items in {{ store_name }}</h2>
+            <ul>
+                {% for item in store_items %}
+                    <li>{{ item.item_name }}: Quantity: {{ item.item_quantity }} <span>${{ '%.2f' | format(item.item_price|float) }}</span></li>
+                {% endfor %}
+            </ul>
+            <footer>
+                <a href="{{ url_for('prices') }}">Back to Store Prices</a>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F5F5F5;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.placesList {
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.placesList h2 {
+    color: #002765;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#store-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.store-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 12px 10px;
+    margin-bottom: 10px;
+    background-color: #F0F0F0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.store-logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px; /* Space between the image and store name */
+    object-fit: contain; /* Ensures the image maintains its aspect ratio */
+}
+
+.store-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.store-name {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.total-price {
+    color: #4CAF50; /* Green color for the total price */
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: auto; /* Aligns the price to the right */
+    margin-right: 20px; /* Adds space between the price and button */
+}
+
+button {
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    background-color: #85C150;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #6AA13D;
+}
+
+#back-button:hover {
+    background-color: #999;
+}
+
+#back-button {
+    display: inline-block;
+    border: none;
+    outline: none;
+    padding: 12px 50px;
+    background-color: #ccc;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+.back-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Adjust as necessary for spacing */
+}
+
+.details-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    margin-left: auto; /* Align to the right */
+}
+
+.details-button:hover {
+    background-color: #0056b3;
+}
