@@ -1,1 +1,10 @@
 images/
+
+# Local macOS/editor noise
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Prevent accidentally committing local folders again
+Desktop/
+Downloads/
